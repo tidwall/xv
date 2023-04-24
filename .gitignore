@@ -1,0 +1,9 @@
+*.dSYM
+*.o
+a.out
+.vscode
+ryu.c
+ryu.h
+json.c
+json.h
+eval
