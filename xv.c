@@ -2679,8 +2679,6 @@ static int strcmpn(const char *a, size_t alen, const char *b, size_t blen) {
     return cmp;
 }
 
-static int string_comparen(struct value value, const uint8_t *str, size_t len);
-
 static int nonstr_strcmpn(struct value value, const uint8_t *str, size_t len) {
     char dst[1024];
     xv_string_copy(from_value(value), dst, sizeof(dst));
@@ -2700,6 +2698,21 @@ int xv_string_compare(struct xv value, const char *str) {
 
 int xv_string_comparen(struct xv value, const char *str, size_t len) {
     return string_comparen(to_value(value), (uint8_t*)str, len);
+}
+
+static int string_equaln(struct value value, const uint8_t *str, size_t len) {
+    if (value.kind != STR_KIND) {
+        return nonstr_strcmpn(value, str, len) == 0;
+    }
+    return value.len == len && memcmp(value.str, str, len) == 0;
+}
+
+int xv_string_equal(struct xv value, const char *str) {
+    return xv_string_equaln(value, str, str?strlen(str):0);
+}
+
+int xv_string_equaln(struct xv value, const char *str, size_t len) {
+    return string_equaln(to_value(value), (uint8_t*)str, len);
 }
 
 struct xv xv_new_object(const void *ptr, uint32_t tag) {

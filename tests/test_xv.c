@@ -728,6 +728,11 @@ void test_xv_values(void) {
     assert(xv_string_compare(xv_new_json("{}"), "{}") == 0);
     assert(xv_string_compare(xv_new_json(NULL), "undefined") == 0);
     assert(xv_string_compare(xv_new_json("\"hello\""), "hello") == 0);
+    assert(xv_string_equal(xv_new_string("hello"), "hello"));
+    assert(!xv_string_equal(xv_new_string(NULL), "hello"));
+    assert(xv_string_equal(xv_new_string(NULL), NULL));
+    assert(!xv_string_equal(xv_new_string("hello"), NULL));
+    assert(xv_string_equal(xv_new_json("{}"), "{}"));
     assert(xv_int64(xv_new_string("123")) == 123);
     assert(xv_int64(xv_new_string("")) == 0);
     assert(xv_int64(xv_new_string("123.123")) == 123);

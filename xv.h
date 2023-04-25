@@ -135,6 +135,10 @@ struct xv xv_array_at(struct xv value, size_t index);
 int xv_string_compare(struct xv value, const char *str);
 int xv_string_comparen(struct xv value, const char *str, size_t len);
 
+int xv_string_equal(struct xv value, const char *str);
+int xv_string_equaln(struct xv value, const char *str, size_t len);
+
+
 // value construction
 struct xv xv_new_string(const char *str);
 struct xv xv_new_stringn(const char *str, size_t len);
