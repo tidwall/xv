@@ -125,11 +125,13 @@ void xv_cleanup(void) {
 }
 
 struct value to_value(struct xv value) {
-    return *(struct value*)&value;
+    void *v = &value;
+    return *(struct value*)v;
 }
 
 struct xv from_value(struct value value) {
-    return *(struct xv*)&value;
+    void *v = &value;
+    return *(struct xv*)v;
 }
 
 struct array {
@@ -2363,7 +2365,7 @@ struct xv xv_eval(const char *expr, struct xv_env *env) {
 struct xv xv_evaln(const char *expr, size_t len, 
     struct xv_env *env)
 {
-    // assert(sizeof(struct value) == sizeof(struct xv));
+    assert(sizeof(struct value) == sizeof(struct xv)); // static_assert?
     struct value value = eval((uint8_t*)expr, len, env, 0);
     struct xv fvalue;
     memcpy(&fvalue, &value, sizeof(struct xv));
