@@ -161,6 +161,7 @@ static bool nocase = false;
         } \
         break; \
     } \
+    (void)failed; \
 }
 
 void test_xv_various(void) {

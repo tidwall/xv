@@ -112,12 +112,10 @@ static void *emalloc(size_t sz) {
 
 void xv_cleanup(void) {
     struct alloc *alloc = tallocs;
-    int nallocs = 0;
     while (alloc) {
         struct alloc *next = alloc->next;
         efree0(alloc);
         alloc = next;
-        nallocs++;
     }
     tmemcount = 0;
     tmemused = 0;
@@ -1651,7 +1649,7 @@ static bool is_surrogate(uint32_t cp) {
 
 static int decode_codepoint(uint32_t cp1, uint32_t cp2) {
     if (55296 <= cp1 && cp1 < 56320 && 56320 <= cp2 && cp2 < 57344) {
-        return (cp1-55296)<<10 | (cp2 - 56320) + 65536;
+        return (((cp1-55296)<<10) | (cp2 - 56320)) + 65536;
     }
     return 65533;
 }
