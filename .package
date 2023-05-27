@@ -1,5 +1,5 @@
 file xv.c
 file xv.h
 
-import github.com/tidwall/json.c v1.1.2
+import github.com/tidwall/json.c v1.1.4
 import github.com/tidwall/ryu v0.2.0
